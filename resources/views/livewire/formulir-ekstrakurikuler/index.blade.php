@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <select wire:model="selectedJenjang" class="form-select">
-                        {{-- <option value="">-- Pilih Jenjang--</option> --}}
+                        <option value="">-- Pilih Jenjang--</option>
                         @foreach ($select_jenjang as $item)
                             <option value="{{ $item->ms_jenjang_id }}">{{ $item->nama_jenjang }}</option>
                         @endforeach
