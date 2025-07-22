@@ -461,6 +461,7 @@
                         </div>
                     </div>
                     <!-- end col -->
+
                     <div class="col-lg-4">
                         <div class="process-card mt-4">
                             <div class="process-arrow-img d-none d-lg-block">
@@ -468,15 +469,16 @@
                             </div>
                             <div class="avatar-sm icon-effect mx-auto mb-4">
                                 <div class="avatar-title bg-transparent text-success rounded-circle h1">
-                                    <i class="ri-wallet-3-line"></i>
+                                    <i class="ri-notification-2-line"></i>
                                 </div>
                             </div>
 
-                            <h5>Pembayaran di Administrasi</h5>
-                            <p class="text-muted ff-secondary">Lakukan pembayaran sesuai ketentuan melalui bagian administrasi sekolah.</p>
+                            <h5>Pengumuman Peserta Terpilih</h5>
+                            <p class="text-muted ff-secondary">Pantau pengumuman dari administrasi untuk mengetahui apakah kamu terpilih sebagai peserta ekskul.</p>
                         </div>
                     </div>
                     <!-- end col -->
+
                     <div class="col-lg-4">
                         <div class="process-card mt-4">
                             <div class="avatar-sm icon-effect mx-auto mb-4">
@@ -496,6 +498,7 @@
             <!-- end container -->
         </section>
         <!-- end Work Process -->
+
 
         <!-- start review -->
         <section class="section bg-primary" id="cerita">
