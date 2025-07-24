@@ -5,6 +5,7 @@ namespace App\Http\Livewire\FormulirEkstrakurikuler;
 use App\Models\Ekstrakurikuler;
 use App\Models\Jenjang;
 use App\Models\PenempatanEkstrakurikuler;
+use App\Models\PenempatanSiswa;
 use App\Models\Siswa;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -18,6 +19,7 @@ class Index extends Component
 
     public $search = '';
     public $nama_siswa = null;
+    public $nama_kelas = null;
     public $nama_jenjang = null;
 
     public function updatedSelectedJenjang()
@@ -38,16 +40,16 @@ class Index extends Component
         $this->nama_jenjang = $firstJenjang->nama_jenjang ?? '';
     }
 
-    public function siswaSelected($ms_siswa_id)
+    public function siswaSelected($ms_penempatan_siswa_id)
     {
-        $siswa = Siswa::find($ms_siswa_id);
+        $penempatan = PenempatanSiswa::with(['ms_siswa', 'ms_kelas'])->find($ms_penempatan_siswa_id);
 
-        if ($siswa) {
-            $this->siswaSelected = $siswa->ms_siswa_id;
-            $this->nama_siswa = $siswa->nama_siswa;
+        if ($penempatan) {
+            $this->siswaSelected = $penempatan->ms_siswa->ms_siswa_id;
+            $this->nama_siswa = $penempatan->ms_siswa->nama_siswa;
+            $this->nama_kelas = $penempatan->ms_kelas->nama_kelas ?? '-';
 
-            // Kosongkan pencarian & hasil
-            $this->search = '';
+            $this->search = ''; // Kosongkan input pencarian
         }
     }
 
@@ -113,12 +115,22 @@ class Index extends Component
             ->get();
 
         $siswas = collect();
-        if ($this->search) {
-            $siswas = Siswa::where('nama_siswa', 'like', '%' . $this->search . '%')
+
+        if ($this->selectedJenjang && $this->search) {
+            $siswas = PenempatanSiswa::with([
+                'ms_siswa.ms_educard',
+                'ms_kelas',
+                'ms_siswa',
+            ])
+                ->where('ms_jenjang_id', $this->selectedJenjang)
+                ->where(function ($query) {
+                    $query->whereHas('ms_siswa', function ($q) {
+                        $q->where('nama_siswa', 'like', '%' . $this->search . '%');
+                    });
+                })
                 ->limit(10)
                 ->get();
         }
-
         return view('livewire.formulir-ekstrakurikuler.index', [
             'select_jenjang' => Jenjang::where('status', 'Aktif')->get(),
 

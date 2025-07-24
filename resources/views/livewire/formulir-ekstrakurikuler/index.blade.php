@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         <div class="flex-grow-1">
-                            <p class="mb-0">Siswa {{ $nama_siswa }}</p>
+                            <p class="mb-0">Siswa {{ $nama_siswa }} - Kelas <strong>{{ $nama_kelas }}</strong></p>
                         </div>
                     </div>
                     <input type="text" class="form-control" placeholder="Pilih siswa..."  value="{{ $nama_siswa }}" wire:model.debounce.300ms="search">
@@ -64,9 +64,10 @@
                     @if (!empty($search))
                         <div class="list-group mt-2 shadow-sm">
                             @forelse ($siswa as $siswa)
-                                <button type="button" class="list-group-item list-group-item-action" wire:click="siswaSelected('{{ $siswa->ms_siswa_id }}')">
-                                    {{ $siswa->nama_siswa }}
+                                <button type="button" class="list-group-item list-group-item-action" wire:click="siswaSelected('{{ $siswa->ms_penempatan_siswa_id }}')">
+                                    {{ $siswa->ms_siswa->nama_siswa }} - Kelas {{ $siswa->ms_kelas->nama_kelas ?? '-' }}
                                 </button>
+                                 {{-- <small class="text-muted">{{ $siswa->ms_kelas->nama_kelas ?? '-' }}</small> --}}
                             @empty
                                 <div class="list-group-item text-muted">Tidak ada hasil</div>
                             @endforelse
