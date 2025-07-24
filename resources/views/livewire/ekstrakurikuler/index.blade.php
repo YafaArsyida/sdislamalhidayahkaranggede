@@ -55,7 +55,7 @@
                         </thead>
                         <tbody>
                             @forelse ($data as $item)
-                                <tr style="white-space: nowrap;">
+                                <tr>
                                     <td>
                                         <a href="#deleteEkstrakurikuler" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger d-inline-flex align-items-center gap-1" wire:click.prevent="$emit('confirmDelete', {{ $item->ms_ekstrakurikuler_id }})" data-bs-trigger="hover" data-bs-placement="top" title="Hapus">
                                             <i class="ri-delete-bin-5-line"></i>
@@ -68,15 +68,15 @@
                                         </span>
                                         <p class="text-muted mb-0">{{ $item->deskripsi }}</p>
                                     </td>
-                                    <td class="">
+                                    <td class="" style="white-space: nowrap;">
                                         <span class="fw-medium fs-14 text-success">
                                             RP{{ number_format($item->biaya, 0, ',', '.') }}
                                         </span>
                                     </td>
-                                    <td>{{ $item->kuota ?? '0' }} siswa</td>
-                                    <td>{{ $item->total_penempatan_siswa() ?? '0' }} siswa</td>
-                                    <td>{{ $item->kuota_tersedia() ?? '0' }} siswa</td>
-                                    <td>
+                                    <td style="white-space: nowrap;">{{ $item->kuota ?? '0' }} siswa</td>
+                                    <td style="white-space: nowrap;">{{ $item->total_penempatan_siswa() ?? '0' }} siswa</td>
+                                    <td style="white-space: nowrap;">{{ $item->kuota_tersedia() ?? '0' }} siswa</td>
+                                    <td style="white-space: nowrap;">
                                         <div class="hstack gap-2">
                                             {{-- Tombol Edit Ekstrakurikuler --}}
                                             <button class="btn btn-sm btn-primary d-inline-flex align-items-center"
