@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Siswa;
 use App\Models\AktifitasPengguna;
 use App\Models\EduPay;
 use App\Models\EduPaySiswa;
+use App\Models\PenempatanEkstrakurikuler;
 use App\Models\PenempatanSiswa;
 use App\Models\Siswa;
 use App\Models\Tabungan;
@@ -54,6 +55,13 @@ class Delete extends Component
                         continue; // Lewati data ini
                     }
 
+                    // 
+                    $adaPenempatanEkskul = PenempatanEkstrakurikuler::where('ms_siswa_id', $penempatan->ms_siswa->ms_siswa_id)->exists();
+                    if ($adaPenempatanEkskul) {
+                        $gagalDihapus[] = $penempatan->ms_penempatan_siswa_id;
+                        continue;
+                    }
+
                     // Pengecekan transaksi tabungan dan EduPay
                     $msSiswaId = $penempatan->ms_siswa_id;
                     $adaTransaksiTabungan = TabunganSiswa::where('ms_siswa_id', $msSiswaId)->exists();
@@ -73,6 +81,7 @@ class Delete extends Component
                     $penempatanLain = PenempatanSiswa::where('ms_siswa_id', $msSiswaId)->exists();
 
                     if (!$penempatanLain) {
+
                         // Pengecekan tagihan terkait penempatan lain
                         if (!TagihanSiswa::whereIn(
                             'ms_penempatan_siswa_id',
@@ -92,7 +101,7 @@ class Delete extends Component
                 if (!empty($gagalDihapus)) {
                     // Berikan notifikasi data yang gagal dihapus
                     $this->dispatchBrowserEvent('alertify-error', [
-                        'message' => 'Sebagian data tidak dapat dihapus karena memiliki keterkaitan tagihan atau transaksi.',
+                        'message' => 'Sebagian data tidak dapat dihapus karena memiliki penempatan.',
                         'details' => $gagalDihapus
                     ]);
                 } else {
@@ -111,8 +120,10 @@ class Delete extends Component
                 $tagihanTerkait = TagihanSiswa::where('ms_penempatan_siswa_id', $penempatan->ms_penempatan_siswa_id)->exists();
                 $adaTransaksiTabungan = TabunganSiswa::where('ms_siswa_id', $msSiswaId)->exists();
                 $adaTransaksiEduPay = EduPaySiswa::where('ms_siswa_id', $msSiswaId)->exists();
+                $adaEkskul = PenempatanEkstrakurikuler::where('ms_siswa_id', $msSiswaId)->exists();
 
-                if ($tagihanTerkait || $adaTransaksiTabungan || $adaTransaksiEduPay) {
+
+                if ($tagihanTerkait || $adaTransaksiTabungan || $adaTransaksiEduPay || $adaEkskul) {
                     $this->dispatchBrowserEvent('alertify-error', ['message' => 'Tidak dapat menghapus siswa karena memiliki keterkaitan tagihan atau transaksi.']);
                     return;
                 }

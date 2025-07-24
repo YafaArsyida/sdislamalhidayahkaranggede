@@ -106,6 +106,7 @@ class Index extends Component
         $this->siswaSelected = null;
         $this->selectedEkstrakurikuler = null;
         $this->nama_siswa = null;
+        $this->nama_kelas = null;
 
         $this->dispatchBrowserEvent('alertify-success', ['message' => 'Pendaftaran berhasil disimpan.']);
     }
