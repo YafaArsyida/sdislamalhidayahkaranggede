@@ -35,7 +35,7 @@
                 </div>
             @else
                 <!-- Tabel Data Ekstrakurikuler -->
-                <div data-simplebar data-simplebar-auto-hide="false" style="max-height: 400px;" class="table-responsive">
+                <div class="table-responsive">
                     <table class="table table-hover nowrap align-middle" style="width:100%">
                     {{-- <div class="text-center my-3">
                         <h4 class="mb-0">Data Ekstrakurikuler Jenjang {{ $namaJenjang }}</h4>

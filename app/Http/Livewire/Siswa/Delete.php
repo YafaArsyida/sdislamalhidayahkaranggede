@@ -124,7 +124,7 @@ class Delete extends Component
 
 
                 if ($tagihanTerkait || $adaTransaksiTabungan || $adaTransaksiEduPay || $adaEkskul) {
-                    $this->dispatchBrowserEvent('alertify-error', ['message' => 'Tidak dapat menghapus siswa karena memiliki keterkaitan tagihan atau transaksi.']);
+                    $this->dispatchBrowserEvent('alertify-error', ['message' => 'Tidak dapat menghapus siswa karena memiliki keterkaitan penempatan.']);
                     return;
                 }
 
