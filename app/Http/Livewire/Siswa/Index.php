@@ -82,7 +82,12 @@ class Index extends Component
     public function showExportSiswa()
     {
         // Query dengan filter jenjang, tahun ajar, dan kelas
-        $query = PenempatanSiswaModel::with(['ms_siswa', 'ms_kelas', 'ms_tahun_ajar', 'ms_jenjang'])
+        $query = PenempatanSiswaModel::with([
+            'ms_siswa',
+            'ms_kelas',
+            'ms_tahun_ajar',
+            'ms_jenjang'
+        ])
             ->join('ms_siswa', 'ms_penempatan_siswa.ms_siswa_id', '=', 'ms_siswa.ms_siswa_id')
             ->where('ms_jenjang_id', $this->selectedJenjang)
             ->where('ms_tahun_ajar_id', $this->selectedTahunAjar);

@@ -60,12 +60,12 @@
                         <li class="nav-item">
                             <a class="nav-link fs-14" href="#alur">Alur Pendaftaran</a>
                         </li>
-                         <li class="nav-item">
+                         {{-- <li class="nav-item">
                             <a class="nav-link fs-14" href="#cerita">Cerita Mereka</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fs-14" href="#pembimbing">Pembimbing</a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a class="nav-link fs-14" href="#formulir">Formulir</a>
                         </li>
@@ -173,14 +173,20 @@
           <!-- start counter -->
         <section class="py-5 position-relative bg-light">
             <div class="container">
-                <div class="row text-center gy-4">
+                <div class="row  justify-content-center text-center gy-4">
                     <div class="col-lg-3 col-6">
                         <div>
                             <h2 class="mb-2"><span class="counter-value" data-target="44">0</span></h2>
-                            <div class="text-muted">Kuota TIK</div>
+                            <div class="text-muted">Kuota TIK <br><small class="text-muted fst-italic">(Khusus Kelas 3–6)</small></div>
                         </div>
                     </div>
-                    <!-- end col -->
+
+                    <div class="col-lg-3 col-6">
+                        <div>
+                            <h2 class="mb-2"><span class="counter-value" data-target="20">0</span></h2>
+                            <div class="text-muted">Kuota Silat</div>
+                        </div>
+                    </div>
 
                     <div class="col-lg-3 col-6">
                         <div>
@@ -188,7 +194,13 @@
                             <div class="text-muted">Kuota Taekwondo</div>
                         </div>
                     </div>
-                    <!-- end col -->
+
+                    <div class="col-lg-3 col-6">
+                        <div>
+                            <h2 class="mb-2"><span class="counter-value" data-target="44">0</span></h2>
+                            <div class="text-muted">Kuota Futsal</div>
+                        </div>
+                    </div>
 
                     <div class="col-lg-3 col-6">
                         <div>
@@ -196,7 +208,20 @@
                             <div class="text-muted">Kuota Tari Tradisional</div>
                         </div>
                     </div>
-                    <!-- end col -->
+
+                    <div class="col-lg-3 col-6">
+                        <div>
+                            <h2 class="mb-2"><span class="counter-value" data-target="22">0</span></h2>
+                            <div class="text-muted">Kuota Musik</div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-6">
+                        <div>
+                            <h2 class="mb-2"><span class="counter-value" data-target="22">0</span></h2>
+                            <div class="text-muted">Kuota Kaligrafi</div>
+                        </div>
+                    </div>
 
                     <div class="col-lg-3 col-6">
                         <div>
@@ -204,12 +229,24 @@
                             <div class="text-muted">Kuota Teater</div>
                         </div>
                     </div>
-                    <!-- end col -->
+
+                    <div class="col-lg-3 col-6">
+                        <div>
+                            <h2 class="mb-2"><span class="counter-value" data-target="22">0</span></h2>
+                            <div class="text-muted">Kuota Public Speaking</div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-6">
+                        <div>
+                            <h2 class="mb-2"><span class="counter-value" data-target="15">0</span></h2>
+                            <div class="text-muted">Kuota Tilawah</div>
+                        </div>
+                    </div>
                 </div>
-                <!-- end row -->
             </div>
-            <!-- end container -->
         </section>
+
         <!-- end counter -->
 
         <section class="section" id="ekstrakurikuler">
@@ -501,7 +538,7 @@
 
 
         <!-- start review -->
-        <section class="section bg-primary" id="cerita">
+        {{-- <section class="section bg-primary" id="cerita">
             <div class="bg-overlay bg-overlay-pattern"></div>
             <div class="container">
                 <div class="row justify-content-center">
@@ -598,11 +635,11 @@
                 <!-- end row -->
             </div>
             <!-- end container -->
-        </section>
+        </section> --}}
         <!-- end review -->
 
         <!-- start team -->
-        <section class="section bg-light" id="pembimbing">
+        {{-- <section class="section bg-light" id="pembimbing">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
@@ -665,7 +702,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- end team -->
 
 

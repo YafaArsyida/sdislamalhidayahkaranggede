@@ -16,6 +16,7 @@ class Index extends Component
     public $selectedJenjang, $ms_siswa_id, $ms_ekstrakurikuler_id;
     public $selectedEkstrakurikuler = null;
     public $siswaSelected = null;
+    public $ms_penempatan_siswa_id = null;
 
     public $search = '';
     public $nama_siswa = null;
@@ -42,14 +43,16 @@ class Index extends Component
 
     public function siswaSelected($ms_penempatan_siswa_id)
     {
-        $penempatan = PenempatanSiswa::with(['ms_siswa', 'ms_kelas'])->find($ms_penempatan_siswa_id);
+        // $siswa = Siswa::find($ms_penempatan_siswa_id);
+        $penempatanSiswa = PenempatanSiswa::find($ms_penempatan_siswa_id);
 
-        if ($penempatan) {
-            $this->siswaSelected = $penempatan->ms_siswa->ms_siswa_id;
-            $this->nama_siswa = $penempatan->ms_siswa->nama_siswa;
-            $this->nama_kelas = $penempatan->ms_kelas->nama_kelas ?? '-';
+        if ($penempatanSiswa) {
+            $this->siswaSelected = $penempatanSiswa->ms_siswa_id;
+            $this->ms_penempatan_siswa_id = $penempatanSiswa->ms_penempatan_siswa_id;
+            $this->nama_siswa = $penempatanSiswa->ms_siswa->nama_siswa;
+            $this->nama_kelas = $penempatanSiswa->ms_kelas->nama_kelas;
 
-            $this->search = ''; // Kosongkan input pencarian
+            $this->search = '';
         }
     }
 
@@ -66,6 +69,22 @@ class Index extends Component
         }
         if (empty($this->selectedEkstrakurikuler)) {
             $this->dispatchBrowserEvent('alertify-error', ['message' => 'Pilih Ekstrakurikuler.']);
+            return;
+        }
+
+        $penempatan = PenempatanSiswa::with('ms_kelas')->find($this->ms_penempatan_siswa_id);
+
+        if (!$penempatan) {
+            $this->dispatchBrowserEvent('alertify-error', ['message' => 'Penempatan siswa tidak ditemukan.']);
+            return;
+        }
+
+        $kelasId = $penempatan->ms_kelas_id;
+        $ekskulId = $this->selectedEkstrakurikuler;
+
+        // Validasi khusus: TIK hanya untuk kelas 3-6
+        if ($ekskulId == 1 && in_array($kelasId, [1, 2])) {
+            $this->dispatchBrowserEvent('alertify-error', ['message' => 'Ekstrakurikuler TIK hanya tersedia untuk siswa kelas 3 sampai 6.']);
             return;
         }
 
@@ -106,7 +125,6 @@ class Index extends Component
         $this->siswaSelected = null;
         $this->selectedEkstrakurikuler = null;
         $this->nama_siswa = null;
-        $this->nama_kelas = null;
 
         $this->dispatchBrowserEvent('alertify-success', ['message' => 'Pendaftaran berhasil disimpan.']);
     }
@@ -116,22 +134,24 @@ class Index extends Component
             ->get();
 
         $siswas = collect();
-
-        if ($this->selectedJenjang && $this->search) {
+        if ($this->search && $this->selectedJenjang) {
             $siswas = PenempatanSiswa::with([
-                'ms_siswa.ms_educard',
                 'ms_kelas',
-                'ms_siswa',
+                'ms_tahun_ajar',
+                'ms_jenjang',
+                'ms_siswa.ms_penempatan_ekstrakurikuler.ms_ekstrakurikuler',
             ])
+                ->join('ms_siswa', 'ms_penempatan_siswa.ms_siswa_id', '=', 'ms_siswa.ms_siswa_id')
                 ->where('ms_jenjang_id', $this->selectedJenjang)
                 ->where(function ($query) {
-                    $query->whereHas('ms_siswa', function ($q) {
-                        $q->where('nama_siswa', 'like', '%' . $this->search . '%');
+                    $query->whereHas('ms_siswa', function ($query) {
+                        $query->where('nama_siswa', 'like', '%' . $this->search . '%');
                     });
                 })
                 ->limit(10)
                 ->get();
         }
+
         return view('livewire.formulir-ekstrakurikuler.index', [
             'select_jenjang' => Jenjang::where('status', 'Aktif')->get(),
 
