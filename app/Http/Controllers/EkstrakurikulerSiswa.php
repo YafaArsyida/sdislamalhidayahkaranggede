@@ -152,10 +152,10 @@ class EkstrakurikulerSiswa extends Controller
         $pdf::AddPage();
         $pdf::SetFont('times', 'B', 14);
         $pdf::Cell(0, 6, 'DATA SISWA EKSTRAKURIKULER', 0, 1, 'C');
-        $pdf::SetFont('times', 'B', 13);
-        $pdf::Cell(0, 6, strtoupper($jenjang->nama_jenjang ?? '-'), 0, 1, 'C');
         $pdf::SetFont('times', '', 12);
-        $pdf::Cell(0, 6, 'Tahun Ajaran: ' . ($tahunAjar->nama_tahun_ajar ?? '-'), 0, 1, 'C');
+        $pdf::Cell(0, 6, strtoupper($jenjang->nama_jenjang ?? '-'), 0, 1, 'C');
+        // $pdf::SetFont('times', '', 12);
+        // $pdf::Cell(0, 6, 'Tahun Ajaran: ' . ($tahunAjar->nama_tahun_ajar ?? '-'), 0, 1, 'C');
         $pdf::SetFont('times', '', 10);
         $pdf::MultiCell(0, 6, 'Dusun No.2 RT.04/RW.01, Dusun 2, Kebonan, Karanggede, Boyolali, Jawa Tengah 57381', 0, 'C');
         $pdf::Ln(4);
