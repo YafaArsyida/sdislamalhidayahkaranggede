@@ -26,6 +26,7 @@
                 @livewire('ekstrakurikuler.create')   
                 @livewire('ekstrakurikuler.edit')   
                 @livewire('ekstrakurikuler.delete')  
+                @livewire('ekstrakurikuler.detail')  
             </div>
             <div class="col-xxl-6 ps-0">
                 @livewire('siswa-ekstrakurikuler.index')

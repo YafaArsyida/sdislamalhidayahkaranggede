@@ -86,6 +86,14 @@
                                                     wire:click.prevent="$emit('loadEkstrakurikuler', {{ $item->ms_ekstrakurikuler_id }})">
                                                 <i class="ri-quill-pen-line align-bottom me-1"></i> Edit
                                             </button>
+                                            {{-- Tombol Detail Tagihan --}}
+                                            <button class="btn btn-sm btn-secondary d-inline-flex align-items-center"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#detailEkstrakurikuler"
+                                                    title="Detail Ekstrakurikuler"
+                                                    wire:click.prevent="$emit('detailEkstrakurikuler', {{ $item->ms_ekstrakurikuler_id }})">
+                                                <i class="ri-eye-line align-bottom me-1"></i> Detail
+                                            </button>
                                         </div>
                                     </td>                                    
                                 </tr>
