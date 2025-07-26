@@ -71,7 +71,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sistem/pengguna-jenjang',  [PenggunaJenjang::class, 'index'])->name('sistem.pengguna-jenjang');
 
     Route::get('/administrasi/kelas-siswa',  [KelasSiswa::class, 'index'])->name('administrasi.kelas-siswa');
+
+    // ekstrakurikuler
     Route::get('/administrasi/ekstrakurikuler-siswa',  [EkstrakurikulerSiswa::class, 'index'])->name('administrasi.ekstrakurikuler-siswa');
+    Route::get('/administrasi/ekstrakurikuler-siswa/pdf',  [EkstrakurikulerSiswa::class, 'cetakPDF'])->name('administrasi.ekstrakurikuler-siswa.pdf');
+    // ekstrakurikuler
     Route::get('/administrasi/dokumen-siswa',  [DokumenSiswa::class, 'index'])->name('administrasi.dokumen-siswa');
     Route::get('/administrasi/manajemen-kepegawaian',  [ManajemenKepegawaian::class, 'index'])->name('administrasi.manajemen-kepegawaian');
     Route::get('/administrasi/hierarki-kepegawaian',  [HierarkiKepegawaian::class, 'index'])->name('administrasi.hierarki-kepegawaian');

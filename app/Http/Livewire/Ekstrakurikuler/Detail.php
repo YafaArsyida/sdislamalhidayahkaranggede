@@ -20,7 +20,8 @@ class Detail extends Component
 
     // Listener untuk Livewire
     protected $listeners = [
-        'detailEkstrakurikuler'
+        'detailEkstrakurikuler',
+        'cetakEkstrakurikuler'
     ];
 
     public function detailEkstrakurikuler($ms_ekstrakurikuler_id)
@@ -33,6 +34,22 @@ class Detail extends Component
         if ($ekskul) {
             $this->selectedJenjang = $ekskul->ms_jenjang_id;
         }
+    }
+    public function cetakEkstrakurikuler($ms_ekstrakurikuler_id)
+    {
+        if (!$ms_ekstrakurikuler_id) {
+            $this->dispatchBrowserEvent('alertify-error', ['message' => 'ektrakurikuler tidak diketahui']);
+            return;
+        }
+        $this->dispatchBrowserEvent('alertify-success', ['message' => 'laporan diproses.']);
+
+        $url = route('administrasi.ekstrakurikuler-siswa.pdf', [
+            'ekstrakurikuler_id' => $ms_ekstrakurikuler_id,
+            'kelas' => $this->selectedKelas,
+            'search' => $this->search,
+        ]);
+
+        $this->emit('openNewTab', $url);
     }
     public function render()
     {

@@ -94,6 +94,12 @@
                                                     wire:click.prevent="$emit('detailEkstrakurikuler', {{ $item->ms_ekstrakurikuler_id }})">
                                                 <i class="ri-eye-line align-bottom me-1"></i> Detail
                                             </button>
+                                           {{-- cetak PDF --}}
+                                            <button class="btn btn-sm btn-danger d-inline-flex align-items-center"
+                                                    title="Cetak Ekstrakurikuler"
+                                                    wire:click.prevent="$emit('cetakEkstrakurikuler', {{ $item->ms_ekstrakurikuler_id }})">
+                                                <i class="ri-printer-line align-bottom me-1"></i> Cetak PDF
+                                            </button>
                                         </div>
                                     </td>                                    
                                 </tr>
