@@ -75,6 +75,7 @@ Route::middleware(['auth'])->group(function () {
     // ekstrakurikuler
     Route::get('/administrasi/ekstrakurikuler-siswa',  [EkstrakurikulerSiswa::class, 'index'])->name('administrasi.ekstrakurikuler-siswa');
     Route::get('/administrasi/ekstrakurikuler-siswa/pdf',  [EkstrakurikulerSiswa::class, 'cetakPDF'])->name('administrasi.ekstrakurikuler-siswa.pdf');
+    Route::get('/administrasi/ekstrakurikuler-siswa/siswapdf',  [EkstrakurikulerSiswa::class, 'cetakSiswaPDF'])->name('administrasi.ekstrakurikuler-siswa.siswapdf');
     // ekstrakurikuler
     Route::get('/administrasi/dokumen-siswa',  [DokumenSiswa::class, 'index'])->name('administrasi.dokumen-siswa');
     Route::get('/administrasi/manajemen-kepegawaian',  [ManajemenKepegawaian::class, 'index'])->name('administrasi.manajemen-kepegawaian');
