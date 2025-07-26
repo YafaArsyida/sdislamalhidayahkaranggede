@@ -91,8 +91,13 @@
                     <select wire:model="selectedEkstrakurikuler" class="form-select">
                         <option value="">-- Pilih --</option>
                         @foreach ($select_ekstrakurikuler as $item)
-                            <option value="{{ $item->ms_ekstrakurikuler_id }}">{{ $item->nama_ekstrakurikuler }}</option>
-                            {{-- <option value="{{ $item->ms_ekstrakurikuler_id }}">{{ $item->nama_ekstrakurikuler }} <b>RP{{ number_format($item->biaya ?? 0, 0, ',', '.') }}</b></option> --}}
+                            <option value="{{ $item->ms_ekstrakurikuler_id }}"
+                                @if(in_array($ms_kelas_id, [8,9,10,11]) && $item->ms_ekstrakurikuler_id == 1) disabled @endif>
+                                {{ $item->nama_ekstrakurikuler }} 
+                                @if(in_array($ms_kelas_id, [8,9,10,11]) && $item->ms_ekstrakurikuler_id == 1)
+                                    (Tidak tersedia untuk kelas 1-2)
+                                @endif
+                            </option>
                         @endforeach
                     </select>
                 </div>

@@ -17,6 +17,7 @@ class Index extends Component
     public $selectedEkstrakurikuler = null;
     public $siswaSelected = null;
     public $ms_penempatan_siswa_id = null;
+    public $ms_kelas_id = null;
 
     public $search = '';
     public $nama_siswa = null;
@@ -49,6 +50,7 @@ class Index extends Component
         if ($penempatanSiswa) {
             $this->siswaSelected = $penempatanSiswa->ms_siswa_id;
             $this->ms_penempatan_siswa_id = $penempatanSiswa->ms_penempatan_siswa_id;
+            $this->ms_kelas_id = $penempatanSiswa->ms_kelas_id;
             $this->nama_siswa = $penempatanSiswa->ms_siswa->nama_siswa;
             $this->nama_kelas = $penempatanSiswa->ms_kelas->nama_kelas;
 
@@ -83,20 +85,19 @@ class Index extends Component
         $ekskulId = $this->selectedEkstrakurikuler;
 
         // Validasi khusus: TIK hanya untuk kelas 3-6
-        if ($ekskulId == 1 && in_array($kelasId, [1, 2])) {
+        if ($ekskulId == 1 && in_array($kelasId, [8, 9, 10, 11])) {
             $this->dispatchBrowserEvent('alertify-error', ['message' => 'Ekstrakurikuler TIK hanya tersedia untuk siswa kelas 3 sampai 6.']);
             return;
         }
 
         // Cek apakah siswa sudah terdaftar di ekstrakurikuler yang sama
         $exists = PenempatanEkstrakurikuler::where([
-            'ms_ekstrakurikuler_id' => $this->selectedEkstrakurikuler,
             'ms_siswa_id' => $this->siswaSelected,
             'ms_jenjang_id' => $this->selectedJenjang,
         ])->exists();
 
         if ($exists) {
-            $this->dispatchBrowserEvent('alertify-success', ['message' => 'Siswa sudah terdaftar dalam ekstrakurikuler ini.']);
+            $this->dispatchBrowserEvent('alertify-success', ['message' => 'Siswa sudah terdaftar dalam ekstrakurikuler.']);
             return;
         }
 
@@ -130,8 +131,16 @@ class Index extends Component
     }
     public function render()
     {
-        $select_ekstrakurikuler = Ekstrakurikuler::where('ms_jenjang_id', $this->selectedJenjang)
-            ->get();
+        $select_ekstrakurikuler = collect(); // ← Tambahkan ini
+        if ($this->siswaSelected) {
+            $select_ekstrakurikuler = Ekstrakurikuler::where('ms_jenjang_id', $this->selectedJenjang)
+                ->get();
+
+            // Jika siswa sudah dipilih
+            if (in_array($this->ms_kelas_id, [8, 9, 10, 11])) {
+                $select_ekstrakurikuler->where('ms_ekstrakurikuler_id', '!=', 1);
+            }
+        }
 
         $siswas = collect();
         if ($this->search && $this->selectedJenjang) {
